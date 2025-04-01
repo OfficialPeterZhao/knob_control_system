@@ -56,7 +56,7 @@ const int LCD_BACKLIGHT_PIN = 3;
 SoftwareSerial rs485Serial(8, 9);
 
 // ADS1115 instance (I2C address 0x48)
-Adafruit_ADS1115 ads(0x48);
+Adafruit_ADS1115 ads;
 
 // I2C LCD instance (typically 0x27 or 0x3F)
 #define LCD_ADDR 0x27
