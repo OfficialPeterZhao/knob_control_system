@@ -30,7 +30,7 @@
    - Adjust pin assignments, addresses, thresholds, and scaling as needed.
 
    WRITTEN BY: FAB LAB TEAM (Hardware & Software)
-   DATE: March 2025
+   DATE: April 2025
 ********************************************************************/
 
 /* --------------- LIBRARY INCLUDES --------------- */
@@ -51,7 +51,7 @@ const int RS485_DE_RE_PIN = 2;
 SoftwareSerial rs485Serial(8, 9);
 
 // ADS1115 at I2C address 0x48
-Adafruit_ADS1115 ads(0x48);
+Adafruit_ADS1115 ads;  // Use default constructor
 
 // I2C address of the LCD (often 0x27 or 0x3F).
 #define LCD_ADDR 0x27
@@ -74,6 +74,8 @@ enum {
 
 /* --------------- SETUP FUNCTION --------------- */
 void setup() {
+
+
   // 1) Debugging over USB
   Serial.begin(9600);
 
@@ -86,7 +88,7 @@ void setup() {
   Wire.begin();
 
   // 4) ADS1115 initialization
-  ads.begin();
+  ads.begin(0x48);
   ads.setGain(GAIN_ONE); // ±4.096 V range
 
   // 5) LCD initialization
