@@ -89,7 +89,8 @@ void setup() {
 
   // 4) ADS1115 initialization
   ads.begin(0x48);
-  ads.setGain(GAIN_ONE); // ±4.096 V range
+  ads.setGain(GAIN_TWOTHIRDS); // ±6.144 V range
+
 
   // 5) LCD initialization
   lcd.begin(16, 2);      // 16 columns, 2 rows
@@ -109,12 +110,11 @@ void loop() {
   float rawCurrent  = readADC(CH_CURRENT);
 
   // 2) CONVERT raw readings to engineering units
-  //    Example threshold for polarity:
   bool polarityPositive = (rawPolarity > 2048);
   // Convert 0..32767 range to approximate 0..5 V.
-  // A more precise approach = rawValue * (4.096 / 32767.0).
-  float hvVoltage = (rawVoltage * 5.0f) / 32767.0f;
-  float hvCurrent = (rawCurrent * 5.0f) / 32767.0f;
+  float hvVoltage = (rawVoltage * 6.144f) / 32767.0f;
+  float hvCurrent = (rawCurrent * 6.144f) / 32767.0f;
+  
 
   // 3) DEBUG: print to USB serial
   Serial.print("Polarity: ");
